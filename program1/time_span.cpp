@@ -1,5 +1,6 @@
 #include <iostream>
-#include "timespan.h"
+#include <iosfwd>
+#include "time_span.h"
 
 TimeSpan::TimeSpan() {
     this->hours_ = 0;
@@ -36,13 +37,7 @@ void TimeSpan::normalize_time_(const double &hours, const double &minutes, const
     this->seconds_ = temp;
 }
 
-void TimeSpan::tell_time() const {
-    std::cout << "Hours: " << this->hours_ << std::endl;
-    std::cout << "Minutes: " << this->minutes_ << std::endl;
-    std::cout << "Seconds: " << this->seconds_ << std::endl;
-}
-
-// Operator overloads
+// conditional operator overloads
 bool TimeSpan::operator==(const TimeSpan &rhs) const {
     if (this->hours_ == rhs.hours_ && this->minutes_ == rhs.minutes_ && this->seconds_ == rhs.seconds_) {
         return true;
@@ -88,3 +83,49 @@ bool TimeSpan::operator>=(const TimeSpan &rhs) const {
     return false;
 }
 
+
+// arithmetic operator overloads
+
+TimeSpan TimeSpan::operator+(const TimeSpan &rhs) const {
+    return TimeSpan(this->hours_+rhs.hours_, this->minutes_+rhs.minutes_, this->seconds_+rhs.seconds_);
+}
+
+TimeSpan TimeSpan::operator-(const TimeSpan &rhs) const {
+    return TimeSpan(this->hours_-rhs.hours_, this->minutes_-rhs.minutes_, this->seconds_-rhs.seconds_);
+}
+
+TimeSpan TimeSpan::operator-() const {
+    return TimeSpan(-(this->hours_), -(this->minutes_), -(this->seconds_));
+}
+
+TimeSpan& TimeSpan::operator+=(const TimeSpan &rhs) {
+    this->set_time(this->hours_ + rhs.hours_, this->minutes_ + rhs.minutes_, this->seconds_ + rhs.seconds_);
+    return *this;
+}
+
+TimeSpan& TimeSpan::operator-=(const TimeSpan &rhs) {
+    this->set_time(this->hours_ - rhs.hours_, this->minutes_ - rhs.minutes_, this->seconds_ - rhs.seconds_);
+    return *this;
+}
+
+
+// I/O operators
+
+std::ostream& operator<<(std::ostream &out, const TimeSpan &ts) {
+    out << "Hours: " << ts.hours_ << ",Minutes: " << ts.minutes_ << ",Seconds: " << ts.seconds_;
+    return out;
+}
+
+std::istream& operator>>(std::istream &in, TimeSpan &ts) {
+    double hours;
+    double minutes;
+    double seconds;
+
+    in >> hours >> minutes >> seconds;
+
+    if (in) {
+        ts = TimeSpan(hours, minutes, seconds);
+    }
+
+    return in;
+}

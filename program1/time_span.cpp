@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iosfwd>
+#include <cmath>
 #include "time_span.h"
 
 TimeSpan::TimeSpan() {
@@ -25,16 +26,31 @@ void TimeSpan::set_time(const int &hours, const int &minutes, const int &seconds
 }
 
 void TimeSpan::normalize_time_(const double &hours, const double &minutes, const double &seconds) {
-    int temp = 0; // convert everything to seconds
+    double temp = 0; // convert everything to seconds
     temp += hours * 3600;
     temp += minutes * 60;
     temp += seconds;
 
-    this->hours_ = temp / 3600;
-    temp = temp % 3600;
-    this->minutes_ = temp / 60;
-    temp = temp % 60;
-    this->seconds_ = temp;
+    int totalSeconds = static_cast<int>(round(temp));
+
+    this->hours_ = totalSeconds / 3600;
+    totalSeconds = totalSeconds % 3600;
+    this->minutes_ = totalSeconds / 60;
+    totalSeconds = totalSeconds % 60;
+    this->seconds_ = totalSeconds;
+}
+
+// getters - setters
+int TimeSpan::hours() const {
+    return this->hours_;
+}
+
+int TimeSpan::minutes() const {
+    return this->minutes_;
+}
+
+int TimeSpan::seconds() const {
+    return this->seconds_;
 }
 
 // conditional operator overloads

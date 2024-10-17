@@ -2,9 +2,9 @@
 #include "time_span.h"
 
 int main() {
-    std::cout << "Enter a timespan: \n";
-    TimeSpan ts;
-    std::cin >> ts;
+    TimeSpan ts1, ts2(5), ts3(7, 0), ts4(4, 0, 0);
+    TimeSpan ts = ts1 + ts2 + ts3 + ts4;
+    std::cout << ts << std::endl;
 
     return 0;
 }

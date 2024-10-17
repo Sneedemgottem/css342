@@ -10,34 +10,35 @@ TimeSpan::TimeSpan() {
 }
 
 TimeSpan::TimeSpan(const double &hours, const double &minutes, const double &seconds) {
-    normalize_time_(hours, minutes, seconds);
+    NormalizeTime(hours, minutes, seconds);
 }
 
 TimeSpan::TimeSpan(const double &minutes, const double &seconds) {
-    normalize_time_(0, minutes, seconds);
+    NormalizeTime(0, minutes, seconds);
 }
 
 TimeSpan::TimeSpan(const double &seconds) {
-    normalize_time_(0, 0, seconds);
+    NormalizeTime(0, 0, seconds);
 }
 
 void TimeSpan::set_time(const int &hours, const int &minutes, const int &seconds) {
-    normalize_time_(hours, minutes, seconds);
+    NormalizeTime(hours, minutes, seconds);
 }
 
-void TimeSpan::normalize_time_(const double &hours, const double &minutes, const double &seconds) {
+void TimeSpan::NormalizeTime(const double &hours, const double &minutes, const double &seconds) {
     double temp = 0; // convert everything to seconds
     temp += hours * 3600;
     temp += minutes * 60;
     temp += seconds;
 
-    int totalSeconds = static_cast<int>(round(temp));
+    int total_seconds = static_cast<int>(round(temp));
+    this->total_seconds_ = total_seconds; // this will be used for easy comparison
 
-    this->hours_ = totalSeconds / 3600;
-    totalSeconds = totalSeconds % 3600;
-    this->minutes_ = totalSeconds / 60;
-    totalSeconds = totalSeconds % 60;
-    this->seconds_ = totalSeconds;
+    this->hours_ = total_seconds / 3600;
+    total_seconds = total_seconds % 3600;
+    this->minutes_ = total_seconds / 60;
+    total_seconds = total_seconds % 60;
+    this->seconds_ = total_seconds;
 }
 
 // getters - setters
@@ -55,48 +56,27 @@ int TimeSpan::seconds() const {
 
 // conditional operator overloads
 bool TimeSpan::operator==(const TimeSpan &rhs) const {
-    if (this->hours_ == rhs.hours_ && this->minutes_ == rhs.minutes_ && this->seconds_ == rhs.seconds_) {
-        return true;
-    }
-
-    return false;
+    return this->total_seconds_ == rhs.total_seconds_;
 }
 
 bool TimeSpan::operator!=(const TimeSpan &rhs) const {
-    return !(*this == rhs);
+    return this->total_seconds_ != rhs.total_seconds_;
+}
+
+bool TimeSpan::operator<(const TimeSpan &rhs) const {
+    return this->total_seconds_ < rhs.total_seconds_;
 }
 
 bool TimeSpan::operator<=(const TimeSpan &rhs) const {
-    if (!(this->hours_ <= rhs.hours_)) {
-        return false;
-    }
-    if (!(this->minutes_ <= rhs.minutes_)) {
-        return false;
-    }
-    if (!(this->seconds_ <= rhs.seconds_)) {
-        return false;
-    }
-    return true;
-}
-bool TimeSpan::operator<(const TimeSpan &rhs) const {
-    if (!(*this == rhs) && *this <= rhs) {
-        return true;
-    }
-    return false;
+    return this->total_seconds_ <= rhs.total_seconds_;
 }
 
 bool TimeSpan::operator>(const TimeSpan &rhs) const {
-    if (!(*this == rhs) && !(*this <= rhs)) {
-        return true;
-    }
-    return false;
+    return this->total_seconds_ > rhs.total_seconds_;
 }
 
 bool TimeSpan::operator>=(const TimeSpan &rhs) const {
-    if (*this == rhs || *this > rhs) {
-        return true;
-    }
-    return false;
+    return this->total_seconds_ >= rhs.total_seconds_;
 }
 
 

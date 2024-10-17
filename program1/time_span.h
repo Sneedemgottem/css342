@@ -41,6 +41,7 @@ class TimeSpan {
         int hours_;
         int minutes_;
         int seconds_;
+        int total_seconds_;
 
-        void normalize_time_(const double &hours, const double &minutes, const double &seconds);
+        void NormalizeTime(const double &hours, const double &minutes, const double &seconds);
 };

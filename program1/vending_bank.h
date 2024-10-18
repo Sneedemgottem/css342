@@ -25,9 +25,15 @@ class VendingBank {
         VendingBank(int id);
 
         // getters-setters
-        int id() const;
-        float total() const; // how much money is in the machine added up
-        const Wallet* coins() const; // More descriptive representation of what is in the machine. const pointer to the internal wallet is returned 
+        int Id() const;
+        float Total() const; // how much money is in the machine added up
+        bool SetQuarters(int n);
+        bool SetDimes(int n);
+        bool SetNickles(int n);
+        bool SetPennies(int n);
+
+        const Wallet* Balance() const; // More descriptive representation of what is in the machine. const pointer to the internal wallet is returned 
+        bool AddCoins(int pennies, int nickles, int dimes, int quarters);
 
         // Method takes in the item id, such as "A4", and a wallet struct. Wallet struct contains the amount of money a person puts into the machine.
         // This method will check if the item is still in stock. If it is, it will call the CanBuy() method. If the method is successful, it it will call TakeMoney()

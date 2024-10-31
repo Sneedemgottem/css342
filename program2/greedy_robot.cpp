@@ -27,14 +27,12 @@ void Game::FindPaths(int robot_x, int robot_y, std::string path, std::vector<std
         paths.push_back(path);
     }
 
-    std::string new_path = path;
     if (robot_x < this->treasure_x_) {
         FindPaths(robot_x + 1, robot_y, path + "E", paths);
     } else if (robot_x > this->treasure_x_) {
         FindPaths(robot_x - 1, robot_y, path + "W", paths);
     }
 
-    std::string new_path2 = path;
     if (robot_y < this->treasure_y_) {
         FindPaths(robot_x, robot_y + 1, path + "N", paths);
     } else if (robot_y > this->treasure_y_) {

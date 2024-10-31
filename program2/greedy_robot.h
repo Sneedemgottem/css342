@@ -3,11 +3,6 @@
 #include <string>
 #include <vector>
 
-struct Entity {
-    int x_;
-    int y_;
-};
-
 class Game {
     public:
         Game(int max_distance, int robot_x, int robot_y, int treasure_x, int treasure_y);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 struct Entity {
     int x_;
@@ -14,19 +15,17 @@ class Game {
         void PrintGameStatistics() const;
     
     private:
-        Entity robot_;
-        Entity treasure_;
         int max_distance_;
 
-        // player movements. Move functions check map bounds
-        bool IsPosWithinBounds(int pos) const;
+        int robot_x_;
+        int robot_y_;
 
-        inline void MoveRobotNorth(Entity &robot);
-        inline void MoveRobotEast(Entity &robot);
-        inline void MoveRobotSouth(Entity &robot);
-        inline void MoveRobotWest(Entity &robot);
-        bool IsPlayerAtChest() const;
-        bool IsRobotAtChest(const Entity &robot) const;
+        int treasure_x_;
+        int treasure_y_;
 
-        void FindPaths(Entity robot, std::string &path, std::vector<std::string> &paths);
+        bool IsRobotAtChest(int robot_x, int robot_y) const;
+        void FindPaths(int robot_x, int robot_y, std::string path, std::vector<std::string> &paths);
+        
+        // todo: implement filter paths
+        std::vector<std::string> FilterPaths(const std::vector<std::string> &paths);
 };

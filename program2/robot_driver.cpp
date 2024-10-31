@@ -2,7 +2,7 @@
 #include "greedy_robot.h"
 
 int main() {
-    Game game(1, 3, 4, 4, 3);
+    Game game(1, 1, 1, 5, 5);
     game.PrintShortestPaths();
     return 0;
 }

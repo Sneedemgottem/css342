@@ -7,7 +7,7 @@ class Game {
     public:
         Game(int max_distance, int robot_x, int robot_y, int treasure_x, int treasure_y);
         void PrintShortestPaths();
-        void PrintGameStatistics() const;
+        int ShortestPossibleDistance();
     
     private:
         int max_distance_;
@@ -20,7 +20,5 @@ class Game {
 
         bool IsRobotAtChest(int robot_x, int robot_y) const;
         void FindPaths(int robot_x, int robot_y, std::string path, std::vector<std::string> &paths);
-        
-        // todo: implement filter paths
-        std::vector<std::string> FilterPaths(const std::vector<std::string> &paths);
+        bool MaxDistanceBroken(const std::string &path) const;
 };

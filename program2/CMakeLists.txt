@@ -9,7 +9,6 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set(CMAKE_CXX_STANDARD 14)
     set(CMAKE_CXX_EXTENSIONS OFF)
     set_property(GLOBAL PROPERTY USER_FOLDERS ON)
-    #include(CTest)
 endif()
 
 add_library(
@@ -31,4 +30,9 @@ add_executable(
 target_link_libraries(
     run PRIVATE
     greedy_robot
+)
+
+add_executable(
+    catalan
+    catalan.cpp
 )

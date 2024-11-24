@@ -22,3 +22,19 @@ add_executable(
     driver.cpp
     list342.h
 )
+
+add_library(
+    child_lib
+    child.cpp
+    child.h
+)
+
+target_include_directories(
+    child_lib PUBLIC
+    .
+)
+
+target_link_libraries(
+    run PRIVATE
+    child_lib
+)

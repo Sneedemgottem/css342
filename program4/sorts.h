@@ -165,3 +165,56 @@ void IterativeMergeSort(std::vector<T> &vec, int start, int end) {
         }
     }
 }
+
+// Using Hoares partition
+template <class T>
+int Partition(std::vector<T> &vec, int start, int end) {
+    int pivot = vec[start];
+    int i = start - 1;
+    int j = end + 1;
+    while (true) {
+        do {
+            i++;
+        } while (vec[i] < pivot);
+
+        do {
+            j--;
+        } while (vec[j] > pivot);
+
+        if (i >= j) {
+            return j;
+        }
+
+        T temp = vec[i];
+        vec[i] = vec[j];
+        vec[j] = temp;
+    }
+}
+
+template <class T>
+void QuickSort(std::vector<T> &vec, int start, int end) {
+    if (start < end) {
+        int part = Partition(vec, start, end);
+        QuickSort(vec, start, part - 1);
+        QuickSort(vec, part + 1, end);
+    }
+}
+
+
+template <class T>
+void ShellSort(std::vector<T> &vec, int start, int end) {
+    int n = end + 1;
+    // set the gap to be k = n/2
+    for (int gap = n/2; gap > 0; gap /= 2) {
+        for (int i = gap; i < n; i += 1) {
+            // makes a hole at position i
+            int temp = vec[i];
+            int j;
+            for (j = i; j >= gap && vec[j - gap] > temp; j -= gap) {
+                vec[j] = vec[j - gap];
+            }
+
+            vec[j] = temp;
+        }
+    }
+}

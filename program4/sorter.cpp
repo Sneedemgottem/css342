@@ -4,10 +4,13 @@
 
 int main() {
     std::vector<int> vec;
-    vec.push_back(8);
-    vec.push_back(9);
-    vec.push_back(7);
-    vec.push_back(4);
-    PrintVector(vec);
+    vec.push_back(38);
+    vec.push_back(27);
+    vec.push_back(43);
+    vec.push_back(10);
+    //vec.push_back(2);
+    PrintVector(vec, 0, vec.size() - 1);
+    IterativeMergeSort(vec, 0, vec.size() - 1);
+    PrintVector(vec, 0, vec.size() - 1);
     return EXIT_SUCCESS;
 }
